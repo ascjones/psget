@@ -61,6 +61,13 @@ install-module -ModulePath $here\TestModules\HelloWorld.zip  -Verbose
 assert-moduleinstalled "HelloWorldZip"
 drop-module "HelloWorldZip"
 
+write-host Should support local file-share zipped modules
+$uncDrive = Join-Path \\localhost ((Split-Path $here -Qualifier) -replace ":","$")
+$uncHere = Join-Path $uncDrive (Split-Path $here -NoQualifier)
+install-module -ModulePath $uncHere\TestModules\HelloWorld.zip  -Verbose
+assert-moduleinstalled "HelloWorldZip"
+drop-module "HelloWorldZip"
+
 write-host Should support local zipped in child folder modules
 install-module -ModulePath $here\TestModules\HelloWorldInChildFolder.zip  -Verbose
 assert-moduleinstalled "HelloWorld"

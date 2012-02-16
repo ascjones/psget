@@ -260,12 +260,12 @@ function CheckIfNeedInstallAndImportIfNot($ModuleName, $Force, $DoNotImport){
 }
 
 function UnzipModule($inp, $dest){
-
-    $inp = Resolve-Path $inp
     
-    if ($inp.Exntesion -ne ".zip"){
-        $PSGET_ZIPFolderPath = [IO.Path]::ChangeExtension($inp, ".zip")            
-        Rename-Item $inp $PSGET_ZIPFolderPath -Force    
+    $inp = Resolve-Path $inp | Convert-Path # deal with UNC path names
+    
+    if ([System.IO.Path]::GetExtension($inp) -ne ".zip"){        
+        $PSGET_ZIPFolderPath = [IO.Path]::ChangeExtension($inp, ".zip")
+        Rename-Item $inp $PSGET_ZIPFolderPath -Force
         $inp = $PSGET_ZIPFolderPath;
     }
 
