@@ -19,7 +19,7 @@ function Assert-NotNull ($Actual) {
 }
 function Drop-Module ($Module) {
     if ((Test-Path $UserModulePath/$Module/)){	
-		Remove-Item $UserModulePath/$Module/ -Force -Recurse
+		Remove-Item $UserModulePath/$Module/ -Recurse -Force
 	}
 }
 
